@@ -51,6 +51,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>org.slf4j</groupId>-->
+<!--			<artifactId>slf4j-api</artifactId>-->
+<!--			<version>1.7.5</version>-->
+<!--			&lt;!&ndash; <scope>provided</scope> &ndash;&gt;-->
+<!--		</dependency>-->
 	</dependencies>
 
 	<build>

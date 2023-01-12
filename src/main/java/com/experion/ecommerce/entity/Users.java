@@ -10,8 +10,14 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
-    private String id;
+    private Long id;
 
     @Column(name="username")
     private String username;
+
+    @Column(name="profileurl")
+    private String profileurl;
+
+    @Column(name="email")
+    private String email;
 }

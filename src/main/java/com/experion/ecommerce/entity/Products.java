@@ -20,4 +20,7 @@ public class Products {
 
     @Column(name="product_price")
     private Double product_price;
+
+    @Column(name="product_image")
+    private String product_image;
 }
