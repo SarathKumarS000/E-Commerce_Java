@@ -11,7 +11,6 @@ import java.util.List;
 @CrossOrigin(origins="*")
 @RequestMapping("/products")
 public class ProductController {
-
     @Autowired
     private ProductService productService;
 
@@ -20,9 +19,15 @@ public class ProductController {
         return productService.getAllProducts(type);
     }
 
-    @GetMapping("/sort")
-    public List<Products> getProducts(){
-        return productService.getProductsByPrice ();
+    @GetMapping("/{field}/asc")
+    public List<Products> getProductwithAscSort(@PathVariable String field){
+        List<Products> allProduct = productService.findProductwithAscSorting(field);
+        return allProduct;
     }
 
+    @GetMapping("/{field}/desc")
+    public List<Products> getProductwithDescSort(@PathVariable String field){
+        List<Products> allProduct = productService.findProductwithDescSorting(field);
+        return allProduct;
+    }
 }

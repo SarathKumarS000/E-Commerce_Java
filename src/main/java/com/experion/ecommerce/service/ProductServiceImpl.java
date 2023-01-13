@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,10 +21,12 @@ public class ProductServiceImpl implements ProductService{
             return productRepo.findByproductType(type);
         }
     }
-
     @Override
-    public List<Products> getProductsByPrice() {
-        var sort = Sort.by(Sort.Direction.ASC, "productPrice");
-        return productRepo.getProductsByPrice(sort);
+    public List<Products> findProductwithAscSorting(String field) {
+        return productRepo.findAll(Sort.by(Sort.Direction.ASC, field));
+    }
+    @Override
+    public List<Products> findProductwithDescSorting(String field) {
+        return productRepo.findAll(Sort.by(Sort.Direction.DESC, field));
     }
 }
