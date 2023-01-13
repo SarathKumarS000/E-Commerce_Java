@@ -10,17 +10,18 @@ public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="product_id")
-    private String product_id;
+    private Long productId;
 
     @Column(name="product_name")
-    private String product_name;
+    private String productName;
 
     @Column(name="product_type")
-    private String product_type;
+    private String productType;
 
     @Column(name="product_price")
-    private Double product_price;
+    private Double productPrice;
 
     @Column(name="product_image")
-    private String product_image;
+    private String productImage;
+
 }
