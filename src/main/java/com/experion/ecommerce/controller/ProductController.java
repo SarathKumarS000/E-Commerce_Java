@@ -15,19 +15,19 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/all")
-    public List<Products> getProducts(@RequestParam(value="productType", required = false) String type){
-        return productService.getAllProducts(type);
+    public List<Products> getProducts(@RequestParam(required = false) String type, @RequestParam(required = false) String sort){
+        return productService.getAllProducts(type, sort);
     }
 
-    @GetMapping("/{field}/asc")
-    public List<Products> getProductwithAscSort(@PathVariable String field){
-        List<Products> allProduct = productService.findProductwithAscSorting(field);
-        return allProduct;
-    }
-
-    @GetMapping("/{field}/desc")
-    public List<Products> getProductwithDescSort(@PathVariable String field){
-        List<Products> allProduct = productService.findProductwithDescSorting(field);
-        return allProduct;
-    }
+//    @GetMapping("/{field}/asc")
+//    public List<Products> getProductwithAscSort(@PathVariable String field){
+//        List<Products> allProduct = productService.findProductwithAscSorting(field);
+//        return allProduct;
+//    }
+//
+//    @GetMapping("/{field}/desc")
+//    public List<Products> getProductwithDescSort(@PathVariable String field){
+//        List<Products> allProduct = productService.findProductwithDescSorting(field);
+//        return allProduct;
+//    }
 }
