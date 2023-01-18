@@ -1,8 +1,10 @@
 package com.experion.ecommerce.service;
 
+import com.experion.ecommerce.controller.UserController;
 import com.experion.ecommerce.dao.ProductRepo;
 import com.experion.ecommerce.dto.ProductPost;
 import com.experion.ecommerce.entity.Products;
+import com.experion.ecommerce.service.ProductService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -16,44 +18,45 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Repository
-public class ProductServiceImpl implements ProductService{
-    private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
-    @Autowired
-    private EntityManager entityManager;
+public class ProductServiceImpl implements ProductService {
+
     @Autowired
     private ProductRepo productRepo;
-
+    private static final Logger logger = (Logger) LoggerFactory.getLogger(UserController.class);
+    @Autowired
+    private EntityManager entityManager;
     @Override
-    public List<Products> getAllProducts(String category, String sort) {
-
+    public List<Products> getAllProducts(String type, String sort) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Products> criteriaQuery = criteriaBuilder.createQuery(Products.class);
         Root<Products> root = criteriaQuery.from(Products.class);
-        if(sort !=null && !sort.isEmpty()) {
-            if(sort.equalsIgnoreCase("asc")){
-                criteriaQuery.orderBy(criteriaBuilder.asc(root.get("productPrice")));
-                logger.info("Product Sorted in Ascending Order");
-            }
-            if(sort.equalsIgnoreCase("desc")){
+        if (sort != null && !sort.isEmpty()) {
+            logger.info("sort before "+sort);
+            if (sort.equalsIgnoreCase("desc")) {
                 criteriaQuery.orderBy(criteriaBuilder.desc(root.get("productPrice")));
-                logger.info("Product Sorted in Descending Order");
+                logger.info("sort before category selected"+sort);
+                System.out.println("dddd" + sort);
+            }
+            if (sort.equalsIgnoreCase("asc")) {
+                criteriaQuery.orderBy(criteriaBuilder.asc(root.get("productPrice")));
+                logger.info("sort before category selected"+sort);
             }
 
         }
-        if(category != null) {
+        if (type != null) {
             List<Predicate> predicates = new ArrayList<Predicate>();
-            if(category != null && !category.isEmpty())
-                predicates.add(criteriaBuilder.equal(root.get("productCategory"),category));
-            if(sort !=null && !sort.isEmpty()) {
-                if(sort.equalsIgnoreCase("asc")){
-                    criteriaQuery.orderBy(criteriaBuilder.asc(root.get("productPrice")));
-                    logger.info("Product Sorted Based on "+category+" in Ascending Order");
-                }
-                if(sort.equalsIgnoreCase("desc")){
+            if (type != null && !type.isEmpty())
+                predicates.add(criteriaBuilder.equal(root.get("productType"), type));
+            if (sort != null && !sort.isEmpty()) {
+                if (sort.equalsIgnoreCase("desc")) {
                     criteriaQuery.orderBy(criteriaBuilder.desc(root.get("productPrice")));
-                    logger.info("Product Sorted Based on "+category+" in Descending Order");
+                    logger.info("sort before category selected"+sort);
+                    System.out.println("dddd" + sort);
+                }
+                if (sort.equalsIgnoreCase("asc")) {
+                    criteriaQuery.orderBy(criteriaBuilder.asc(root.get("productPrice")));
+                    logger.info("sort before category selected"+sort);
                 }
             }
 
@@ -61,6 +64,7 @@ public class ProductServiceImpl implements ProductService{
         }
 
         return entityManager.createQuery(criteriaQuery).getResultList();
+
     }
 
     @Override
